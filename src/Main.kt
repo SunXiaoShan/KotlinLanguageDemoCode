@@ -5,6 +5,16 @@ import com.sun.xml.internal.fastinfoset.util.StringArray
 
 // playground: https://play.kotlinlang.org/
 
+// Learning: https://developer.android.com/kotlin/learn
+// Learning: https://kotlinlang.org/docs/reference/basic-types.html
+
+// playground: https://play.kotlinlang.org/
+
+// Learning: https://developer.android.com/kotlin/learn
+// Learning: https://kotlinlang.org/docs/reference/basic-types.html
+
+// playground: https://play.kotlinlang.org/
+
 fun main(args: Array<String>) {
 
     VariableDemo()
@@ -14,6 +24,8 @@ fun main(args: Array<String>) {
     controlFlowDemo()
 
     classDemo()
+
+    functionDemo()
 }
 
 fun VariableDemo() {
@@ -143,6 +155,87 @@ fun classDemo() {
     println(ma.stringLengthFunc2("abcde", "abcde"))
 
     ma.testStringMapper()
+
+    open class Person  { // constructor(i: String) {
+        val DD:String
+        open var v: Int = 999
+        init {
+//            DD = firstName
+        }
+
+        init {
+            println("Init block")
+        }
+
+        constructor(i: String) {
+            println("Constructor")
+            DD = i
+        }
+
+        open fun getHello():String {
+            return "Hello"
+        }
+    }
+
+    class Man: Person {
+        constructor(ctx: String) : super(ctx)
+        override var v: Int = 999
+
+        override fun getHello():String {
+            return "World"
+        }
+
+        fun getSuperHello(): String {
+            return super.getHello()
+        }
+    }
+
+    class FilledRectangle {
+        fun draw() {
+            println("aaa")
+        }
+
+        fun drawFiller() {
+            val filler = Filler()
+            filler.draw()
+        }
+
+        inner class Filler {
+            fun draw() {
+                this@FilledRectangle.draw()
+                println("hhh")
+            }
+        }
+    }
+
+    val man = Man("xxx")
+    println(man.DD)
+
+    val fill = FilledRectangle()
+    fill.drawFiller()
+}
+
+fun functionDemo() {
+    println("========= functionDemo ====================")
+
+    fun foo(bar: Int = 0, baz: Int = 1, qux: () -> Unit) {
+        qux()
+    }
+    foo(qux = { println("hello") })
+
+    fun <T> asList(vararg ts: T): List<T> {
+        val result = ArrayList<T>()
+        for (t in ts) // ts is an Array
+            result.add(t)
+        return result
+    }
+    val list = asList(1, 2, 3)
+
+    val a = arrayOf(1, 2, 3)
+    val aalist = asList(-1, 0, *a, 4)
+    println(aalist)
+
+
 }
 
 class Main(name: String) {
